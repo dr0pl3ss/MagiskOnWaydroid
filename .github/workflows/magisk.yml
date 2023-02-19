@@ -101,13 +101,13 @@ jobs:
                 matrix.magisk_apk = ["delta"];
                 break;
               default:
-                matrix.magisk_apk = ["25.2"];
+                matrix.magisk_apk = ["delta"];
                 break;
             }
             let gapps_variant = "${{ github.event.inputs.gapps_variant }}"
             switch ( gapps_variant ) {
               default:
-                matrix.gapps_variant = ["pico"];
+                matrix.gapps_variant = ["none"];
                 break;
             }
             let root_sol = "${{ github.event.inputs.root_sol }}"
