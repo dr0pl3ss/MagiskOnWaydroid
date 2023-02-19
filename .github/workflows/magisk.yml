@@ -119,7 +119,7 @@ jobs:
             core.setOutput("matrix",JSON.stringify(matrix));
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: matrix
     strategy:
       matrix: ${{fromJson(needs.matrix.outputs.matrix)}}
@@ -374,10 +374,10 @@ jobs:
           sudo patchelf --replace-needed libdl.so "${HOME}/libdl.so" ./magiskpolicy || true
           sudo patchelf --set-interpreter "${HOME}/linker64" ./magiskpolicy || true
           # new since v24.3
-          chmod +x ./magiskpolicy
-          echo '/dev/magisk(/.*)?    u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
-          echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
-          echo '/system/bin/strace u:object_r:zygote_socket:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
+          sudo chmod +x ./magiskpolicy
+          sudo echo '/dev/magisk(/.*)?    u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
+          sudo echo '/data/adb/magisk(/.*)?   u:object_r:magisk_file:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
+          sudo echo '/system/bin/strace u:object_r:zygote_socket:s0' | sudo tee -a system/vendor/etc/selinux/vendor_file_contexts
           sudo ./magiskpolicy --load system/vendor/etc/selinux/precompiled_sepolicy --save system/vendor/etc/selinux/precompiled_sepolicy --magisk "allow * magisk_file lnk_file *"
           sudo tee -a system/system/etc/init/hw/init.rc <<EOF
 
